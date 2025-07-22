@@ -1,17 +1,11 @@
 %% cheatsheet.cls
 %% A LaTeX document class for creating academic cheat sheets
-%% Based on the original ML cheat sheet by João Marafuz Gaspar
 %% 
 %% This class provides a flexible template for creating multi-column
 %% cheat sheets with boxed sections and customizable styling.
 
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{cheatsheet}[2025/07/22 v1.0 Cheat Sheet Document Class]
-
-% Class options
-\newif\if@english
-\@englishfalse
-\DeclareOption{english}{\@englishtrue}
 
 % Font size options
 \newcommand{\@fontsize}{10pt}
@@ -60,9 +54,7 @@
 \RequirePackage{graphicx}
 
 % Language support
-\if@english
-    \RequirePackage[english]{babel}
-\fi
+\RequirePackage[english]{babel}
 \RequirePackage[utf8]{inputenc}
 
 % TikZ libraries
@@ -85,7 +77,7 @@
 
 % Paragraph settings
 \parindent0pt
-\parskip0pt
+\parskip2pt
 
 % Remove page numbering
 \pagestyle{empty}
@@ -117,13 +109,14 @@
 \newcommand{\setcheatsheetinstitution}[1]{\renewcommand{\cheatsheetinstitution}{#1}}
 \newcommand{\setcheatsheetsource}[1]{\renewcommand{\cheatsheetsource}{#1}}
 
-% Command for creating cheat sheet sections
-\newcommand{\cheatsheetbox}[3]{%
+% Environment for creating cheat sheet sections
+\RequirePackage{environ}
+\NewEnviron{cheatsheetbox}[2]{%
     \begin{tikzpicture}
         \node [mybox] (box){%
             \small
             \begin{minipage}{0.3\textwidth}
-                #3
+                \BODY
                 \vspace{#2}
             \end{minipage}
         };

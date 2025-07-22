@@ -1,95 +1,189 @@
-\documentclass[landscape,english,10pt,3col]{cheatsheet}
+\documentclass[10pt,3col]{cheatsheet}
 
 % Set cheat sheet information
-\setcheatsheettitle{Example Cheat Sheet}
+\setcheatsheettitle{\textbf{\texttt{Mathematics \& Computer Science} Quick Reference}}
 \setcheatsheetversion{v1.0}
 \setcheatsheetdate{\today}
-\setcheatsheetauthor{Your Name}
-\setcheatsheetinstitution{Your Institution}
-\setcheatsheetsource{Your Course/Subject}
+\setcheatsheetauthor{João Marafuz Gaspar}
+\setcheatsheetinstitution{Instituto Superior Técnico}
+\setcheatsheetsource{Multiple Sources}
 
 \begin{document}
 
-\makecheatsheettitle
-
 \begin{multicols}{3}
 
-%------------ Example Section 1 ---------------
-\cheatsheetbox{Mathematical Formulas}{
-    Quadratic formula: $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$\\
-    Pythagorean theorem: $a^2 + b^2 = c^2$\\
-    Euler's identity: $e^{i\pi} + 1 = 0$\\
-    Derivative of $e^x$: $\frac{d}{dx}e^x = e^x$\\
-    Integral of $\sin(x)$: $\int \sin(x) dx = -\cos(x) + C$
-}
+%------------ Calculus Essentials ---------------
+\begin{cheatsheetbox}{\texttt{Calculus Essentials}}{-0.25cm}
+    \textbf{Derivatives}\\
+    $\frac{d}{dx}[x^n] = nx^{n-1}$\\
+    $\frac{d}{dx}[e^x] = e^x$\\
+    $\frac{d}{dx}[\ln x] = \frac{1}{x}$\\
+    $\frac{d}{dx}[\sin x] = \cos x$\\
+    $\frac{d}{dx}[\cos x] = -\sin x$\\
+    \textbf{Chain Rule}: $(f \circ g)' = f'(g(x)) \cdot g'(x)$\\
+    \textbf{Product Rule}: $(fg)' = f'g + fg'$\\
+    \textbf{Quotient Rule}: $\left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}$\\
+    \textbf{Integration by Parts}: $\int u \, dv = uv - \int v \, du$
+\end{cheatsheetbox}
 
-%------------ Example Section 2 ---------------
-\cheatsheetbox{Physics Formulas}{
-    Newton's second law: $F = ma$\\
-    Kinetic energy: $K = \frac{1}{2}mv^2$\\
-    Potential energy: $U = mgh$\\
-    Wave equation: $v = f\lambda$\\
-    Ohm's law: $V = IR$
-}
+%------------ Linear Algebra ---------------
+\begin{cheatsheetbox}{\texttt{Linear Algebra}}{-0.25cm}
+    \textbf{Matrix Operations}\\
+    $(AB)^T = B^T A^T$\\
+    $(AB)^{-1} = B^{-1}A^{-1}$\\
+    $\det(AB) = \det(A)\det(B)$\\
+    \textbf{Eigenvalues}: $Av = \lambda v$\\
+    Characteristic polynomial: $\det(A - \lambda I) = 0$\\
+    \textbf{Vector Spaces}\\
+    Linear combination: $c_1v_1 + c_2v_2 + \cdots + c_nv_n$\\
+    Basis: linearly independent spanning set\\
+    $\dim(V) = $ number of vectors in any basis\\
+    \textbf{Inner Product}: $\langle u,v \rangle = u^T v$\\
+    Cauchy-Schwarz: $|\langle u,v \rangle| \leq \|u\|\|v\|$
+\end{cheatsheetbox}
 
-%------------ Example Section 3 ---------------
-\cheatsheetbox{Statistics}{
-    Mean: $\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i$\\
-    Variance: $s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2$\\
-    Standard deviation: $s = \sqrt{s^2}$\\
-    Normal distribution: $f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$\\
-    Z-score: $z = \frac{x - \mu}{\sigma}$
-}
-
-\sectionbreak
-
-%------------ Example Section 4 ---------------
-\cheatsheetbox{Programming Concepts}{
+%------------ Algorithms & Complexity ---------------
+\begin{cheatsheetbox}{\texttt{Algorithms \& Complexity}}{-0.25cm}
     \textbf{Big O Notation}\\
-    Constant: $O(1)$\\
-    Logarithmic: $O(\log n)$\\
-    Linear: $O(n)$\\
-    Linearithmic: $O(n \log n)$\\
-    Quadratic: $O(n^2)$\\
-    Exponential: $O(2^n)$\\
-    
-    \textbf{Data Structures}\\
-    Array access: $O(1)$\\
-    Linked list search: $O(n)$\\
-    Binary tree search: $O(\log n)$\\
-    Hash table access: $O(1)$ average
-}
+    $O(1) < O(\log n) < O(n) < O(n \log n) < O(n^2) < O(2^n)$\\
+    \textbf{Sorting Algorithms}\\
+    Quicksort: $O(n \log n)$ avg, $O(n^2)$ worst\\
+    Mergesort: $O(n \log n)$ always\\
+    Heapsort: $O(n \log n)$ always\\
+    \textbf{Graph Algorithms}\\
+    BFS/DFS: $O(V + E)$\\
+    Dijkstra: $O((V + E) \log V)$\\
+    Bellman-Ford: $O(VE)$\\
+    Floyd-Warshall: $O(V^3)$\\
+    \textbf{Dynamic Programming}\\
+    Optimal substructure + overlapping subproblems\\
+    Example: Fibonacci sequence, Knapsack problem\\
+    \textbf{NP-Completeness}\\
+    NP-complete problems are in NP and as hard as any problem in NP\\
+    Examples: Traveling Salesman, Knapsack, SAT\\
+    \textbf{Greedy Algorithms}\\
+    Make the locally optimal choice at each step\\
+    Example: Prim's algorithm for MST, Huffman coding\\
+    \textbf{Recursion}\\
+    Base case + recursive case\\
+    Example: Factorial, Fibonacci sequence
+\end{cheatsheetbox}
 
-%------------ Example Section 5 ---------------
-\cheatsheetbox{Useful Identities}{
-    $\sin^2(x) + \cos^2(x) = 1$\\
-    $\tan(x) = \frac{\sin(x)}{\cos(x)}$\\
-    $\sin(2x) = 2\sin(x)\cos(x)$\\
-    $\cos(2x) = \cos^2(x) - \sin^2(x)$\\
-    $e^{ix} = \cos(x) + i\sin(x)$\\
-    $\ln(ab) = \ln(a) + \ln(b)$\\
-    $\log_a(b^c) = c\log_a(b)$
-}
+\makecheatsheettitle
 
-%------------ Example Section 6 ---------------
-\cheatsheetbox{Quick References}{
-    \textbf{Greek Letters}\\
-    $\alpha, \beta, \gamma, \delta, \epsilon$\\
-    $\zeta, \eta, \theta, \iota, \kappa$\\
-    $\lambda, \mu, \nu, \xi, \pi$\\
-    $\rho, \sigma, \tau, \upsilon, \phi$\\
-    $\chi, \psi, \omega$\\
-    
-    \textbf{Set Operations}\\
-    Union: $A \cup B$\\
-    Intersection: $A \cap B$\\
-    Difference: $A \setminus B$\\
-    Subset: $A \subseteq B$\\
-    Element of: $x \in A$
-}
+%------------ Probability & Statistics ---------------
+\begin{cheatsheetbox}{\texttt{Probability \& Statistics}}{-0.25cm}
+    \textbf{Probability Rules}\\
+    $P(A \cup B) = P(A) + P(B) - P(A \cap B)$\\
+    $P(A|B) = \frac{P(A \cap B)}{P(B)}$\\
+    Bayes: $P(A|B) = \frac{P(B|A)P(A)}{P(B)}$\\
+    \textbf{Distributions}\\
+    Normal: $f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$\\
+    Binomial: $P(X=k) = \binom{n}{k}p^k(1-p)^{n-k}$\\
+    Poisson: $P(X=k) = \frac{\lambda^k e^{-\lambda}}{k!}$\\
+    \textbf{Central Limit Theorem}\\
+    $\bar{X} \sim N\left(\mu, \frac{\sigma^2}{n}\right)$ for large $n$\\
+    \textbf{Hypothesis Testing}\\
+    Null hypothesis $H_0$: no effect, alternative $H_1$: effect exists\\
+    Test statistic: $Z = \frac{\bar{X} - \mu_0}{\sigma/\sqrt{n}}$\\
+    p-value: probability of observing data given $H_0$
+\end{cheatsheetbox}
 
-\end{multicols}
+%------------ Computer Networks ---------------
+\begin{cheatsheetbox}{\texttt{Computer Networks}}{-0.25cm}
+    \textbf{OSI Model}\\
+    7. Application (HTTP, SMTP, DNS)\\
+    6. Presentation (SSL/TLS, encryption)\\
+    5. Session (NetBIOS, RPC)\\
+    4. Transport (TCP, UDP)\\
+    3. Network (IP, ICMP, routing)\\
+    2. Data Link (Ethernet, Wi-Fi)\\
+    1. Physical (cables, wireless signals)\\
+    \textbf{TCP vs UDP}\\
+    TCP: reliable, ordered, connection-oriented\\
+    UDP: fast, connectionless, best-effort\\
+    \textbf{IP Addressing}\\
+    IPv4: 32-bit (e.g., 192.168.1.1)\\
+    IPv6: 128-bit (e.g., 2001:db8::1)
+\end{cheatsheetbox}
+
+%------------ Data Structures ---------------
+\begin{cheatsheetbox}{\texttt{Data Structures}}{-0.25cm}
+    \textbf{Time Complexities}\\
+    \begin{tabular}{|l|c|c|c|}
+    \hline
+    Structure & Access & Search & Insert \\
+    \hline
+    Array & $O(1)$ & $O(n)$ & $O(n)$ \\
+    Linked List & $O(n)$ & $O(n)$ & $O(1)$ \\
+    Hash Table & $O(1)$ & $O(1)$ & $O(1)$ \\
+    Binary Tree & $O(\log n)$ & $O(\log n)$ & $O(\log n)$ \\
+    \hline
+    \end{tabular}\\
+    \textbf{Tree Traversals}\\
+    Inorder: Left → Root → Right\\
+    Preorder: Root → Left → Right\\
+    Postorder: Left → Right → Root
+\end{cheatsheetbox}
+
+%------------ Database Systems ---------------
+\begin{cheatsheetbox}{\texttt{Database Systems}}{-0.25cm}
+    \textbf{SQL Operations}\\
+    \texttt{SELECT column FROM table WHERE condition}\\
+    \texttt{JOIN}: combines rows from multiple tables\\
+    \texttt{GROUP BY}: groups rows by column values\\
+    \texttt{ORDER BY}: sorts result set\\
+    \textbf{ACID Properties}\\
+    \textbf{A}tomicity: all or nothing\\
+    \textbf{C}onsistency: valid state always\\
+    \textbf{I}solation: concurrent transactions\\
+    \textbf{D}urability: permanent storage\\
+    \textbf{Normalization}\\
+    1NF: atomic values, unique rows\\
+    2NF: 1NF + no partial dependencies\\
+    3NF: 2NF + no transitive dependencies
+\end{cheatsheetbox}
+
+%------------ Cybersecurity ---------------
+\begin{cheatsheetbox}{\texttt{Cybersecurity Basics}}{-0.25cm}
+    \textbf{Cryptography}\\
+    Symmetric: same key for encrypt/decrypt\\
+    Asymmetric: public/private key pairs\\
+    Hash: one-way function (MD5, SHA-256)\\
+    Digital signature: authenticity + integrity\\
+    \textbf{Common Attacks}\\
+    SQL Injection: malicious SQL in input\\
+    XSS: malicious scripts in web pages\\
+    CSRF: unauthorized actions on behalf of user\\
+    Phishing: fraudulent emails/websites\\
+    \textbf{Security Principles}\\
+    CIA Triad: Confidentiality, Integrity, Availability\\
+    Defense in depth: multiple security layers\\
+    Principle of least privilege
+\end{cheatsheetbox}
+
+%------------ Software Engineering ---------------
+\begin{cheatsheetbox}{\texttt{Software Engineering}}{-0.25cm}
+    \textbf{Design Patterns}\\
+    Singleton: single instance of class\\
+    Factory: create objects without specifying class\\
+    Observer: notify multiple objects of changes\\
+    Strategy: family of algorithms, interchangeable\\
+    \textbf{SOLID Principles}\\
+    \textbf{S}ingle Responsibility Principle\\
+    \textbf{O}pen/Closed Principle\\
+    \textbf{L}iskov Substitution Principle\\
+    \textbf{I}nterface Segregation Principle\\
+    \textbf{D}ependency Inversion Principle\\
+    \textbf{Agile Methodology}\\
+    Scrum: sprints, daily standups, retrospectives\\
+    Kanban: visual workflow management\\
+    Continuous Integration/Continuous Deployment (CI/CD)\\
+    Test-Driven Development (TDD)
+\end{cheatsheetbox}
 
 \makefooter
+
+\end{multicols}
 
 \end{document}
