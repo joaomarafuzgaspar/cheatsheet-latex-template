@@ -1,0 +1,144 @@
+\documentclass[10pt,3col]{cheatsheet}
+
+% Set cheat sheet information
+\setcheatsheettitle{\textbf{\texttt{ML} Cheat Sheet}}
+\setcheatsheetversion{v2.0}
+\setcheatsheetdate{2022/11/13}
+\setcheatsheetauthor{João Marafuz Gaspar -- 96240}
+\setcheatsheetinstitution{IST, 2022}
+\setcheatsheetsource{Machine Learning Slides}
+
+\begin{document}
+
+\begin{multicols}{3}
+
+%------------ Regression & Regularization ---------------
+\begin{cheatsheetbox}{\texttt{Regression \& Regularization}}{-0.3cm}
+    LS: $\hat{\beta}_\mathrm{LS} = \underset{\beta}{\arg\min} \ ||y - X\beta||_2^2 \Rightarrow \hat{\beta}_\mathrm{LS} = (X^TX)^{-1}X^Ty$\\
+    Polynomial: $f(x) = \sum_{k=0}^p \beta_kx^k$\\
+    RBF: $G_k(x) = e^{-\frac{1}{2\sigma^2}||x-c^{(k)}||^2} \wedge w = (X^TX)^{-1}X^Ty \Rightarrow \\ \Rightarrow f(x) = \sum_{k=1}^p w_k G_k(x)$\\
+    Ridge: $\hat{\beta}_\mathrm{ridge} = \underset{\beta}{\arg\min} \ ||y - X\beta||_2^2 + \lambda ||\beta||^2_2 \Rightarrow \\ \Rightarrow \hat{\beta}_\mathrm{ridge} = (X^TX + \lambda I)^{-1}X^Ty \rightarrow$ keep $\beta_k$ small\\
+    Lasso: $\hat{\beta}_\mathrm{lasso} = \underset{\beta}{\arg\min} \ ||y - X\beta||_2^2 + \lambda ||\beta||_1 \rightarrow$ some $\beta_k = 0$\\
+    Sparse: $\hat{\beta}_\mathrm{sparse} = \underset{\beta}{\arg\min} \ ||y - X\beta||_2^2 + \lambda \simeq \hat{\beta}_\mathrm{lasso}$
+\end{cheatsheetbox}
+
+%------------ Optimization ---------------
+\begin{cheatsheetbox}{\texttt{Optimization}}{-0.25cm}
+    Gradient descent: $\theta^{(t+1)} = \theta^{(t)} - \eta \nabla_\theta J(\theta^{(t)})$\\
+    Momentum technique: $v^{(t+1)} = \alpha v^{(t)} - \eta \nabla_\theta J(\theta^{(t)}) \wedge \theta^{(t+1)} = \theta^{(t)} + v^{(t+1)}, \ 0.5 \leq \alpha \leq 0.95 \rightarrow$ LP filtering\\
+    Nesterov acc. grad.: $v^{(t+1)} = \alpha v^{(t)} - \eta \nabla_\theta J(\theta^{(t)} + \alpha v^{(t)}) \wedge \theta^{(t+1)} = \theta^{(t)} + v^{(t+1)}, \ 0.5 \leq \alpha \leq 0.95 \rightarrow $ better than MT\\
+    Adaptive step size: {\scriptsize $\theta^{(t+1)}_i = \theta^{(t)}_i - \eta_i^{(t)} \frac{\partial J}{\partial \theta_i}(\theta^{(t)}) \wedge \\ \eta_i^{(t)} =  \begin{cases} u \eta_i^{(t-1)}, \ \mathrm{if} \ \frac{\partial J}{\partial \theta_i}(\theta^{(t)}) \times \frac{\partial J}{\partial \theta_i}(\theta^{(t - 1)}) > 0\\ d \eta_i^{(t - 1)}, \ \mathrm{otherwise} \end{cases}$} \hspace{-0.5cm} {\scriptsize, $u = 1.2 \wedge d = 0.8$}\\
+    Newton method: $\theta^{(t+1)} = \theta^{(t)} - \left[H(\theta^{(t)})\right]^{-1} \nabla_\theta J(\theta^{(t)})$
+\end{cheatsheetbox}
+
+%------------ Evaluation & Generalization ---------------
+\begin{cheatsheetbox}{\texttt{Evaluation \& Generalization}}{-0.25cm}
+    \textbf{Loss function}\\
+    Regression: $L(y, \hat{y}) = (y-\hat{y})^2$\\
+    Classification: $L(y, \hat{y}) = \begin{cases}0, \ y = \hat{y}\\ 1 , \ \mathrm{otherwise}\end{cases}\\$ or $L(y = i, \hat{y} = j) = L_{ij}$, where $L_{ii} = 0$\\
+    \textbf{Risk}$\rightarrow \mathcal{R} = \mathrm{E}\{L(y, \hat{y}(x))\}$\\
+    Regression: $\mathcal{R} = \int{\int{L(y, \hat{y}(x)) p(x, y)}}dxdy$\\
+    Classification: $\mathcal{R} = \sum_y{\sum_x{L(y, \hat{y}(x)) P(x, y)}} = \\ = \sum_y\sum_{\hat{y}}L(y, \hat{y}) P(y, \hat{y})$\\
+    \textbf{Empirical risk}$\rightarrow \mathcal{R}_\mathrm{e} = \frac{1}{n}\sum_{i = 1}^{n} L(y^{(i)}, f(x^{(i)}))$
+\end{cheatsheetbox}
+
+%------------ Neural networks ---------------
+\begin{cheatsheetbox}{\texttt{Neural networks}}{-0.25cm}
+    \textbf{Activation functions}\\
+    $\mathrm{Sigmoid}_1$ (logistic): $g(s) = \frac{1}{1 + e^{-s}}$\\
+    $\mathrm{Sigmoid}_2$ (arctangent): $g(s) = \arctan(x)$\\
+    $\mathrm{Sigmoid}_3$ (softmax): $g(\mathbf{x})_i = \frac{e^{x_i}}{\sum_j e^{x_j}}\rightarrow$ output layer\\
+    Linear unit: $g(s) = s \rightarrow$ output layer\\
+    ReLU: $g(s) = s_+ = \max(0, s)\rightarrow$ recommended\\
+    \textbf{MLP training}\\
+    Total loss (cost): $\mathcal{C} = \sum_k L(y^{(k)}, \hat{y}^{(k)}) = \sum_k L^{(k)}$\\
+    Loss (typical): $L(y, \hat{y}) = ||y-\hat{y}||_2^2$\\
+    Min. $\mathcal{C}$: {\scriptsize $w_{ij}(t+1) = w_{ij}(t) + \Delta w_{ij}(t), \ \Delta w_{ij}(t) = -\eta \frac{\partial \mathcal{C}}{\partial w_{ij}}\Big|_{w(t)}$}\\
+    Batch mode: $\Delta w_{ij}(t) = -\eta \sum_k\frac{\partial L^{(k)}}{\partial w_{ij}}$\\
+    On-line mode (stoch. grad.): $\Delta w_{ij}(t) = -\eta \frac{\partial L^{(k)}}{\partial w_{ij}}$
+\end{cheatsheetbox}
+
+\makecheatsheettitle
+
+%------------ Neural networks (cont.) ---------------
+\begin{cheatsheetbox}{\texttt{Neural networks} (cont.)}{0.0cm}
+    \textbf{MLP architecture}\\
+    Layer $\ell_1 = 1$: $s_q = w_{0q} + \sum_{i \in \mathrm{input}} w_{iq}x_i$, $z_q = g(s_q)$\\
+    Layer $\ell_q > 1$: $s_q = w_{0q} + \sum_{i \in \mathrm{prev. layer}} w_{iq}z_i$, $z_q = g(s_q)$\\
+    $\frac{\partial L}{\partial w_{pq}} = \frac{\partial L}{\partial s_q}\frac{\partial s_q}{\partial w_{pq}} = \varepsilon_q g(s_p) = \varepsilon_q z_p$, or $\varepsilon_qx_p$ if $i = j$\\
+    {$\displaystyle \varepsilon_q = \frac{\partial L}{\partial s_q} = \sum_{j \in \mathrm{next \ell}} \frac{\partial L}{\partial s_j}\frac{\partial s_j}{\partial z_q}\frac{\partial z_q}{\partial s_q} = g'(s_q)\sum_{j \in \mathrm{next \ell}} w_{qj}\varepsilon_j$}\\
+    \begin{minipage}{.5\textwidth}
+        \includegraphics[scale=0.27]{figs/mlp.png}
+    \end{minipage}\hfill
+    \begin{minipage}{.5\textwidth}
+        \includegraphics[scale=0.3]{figs/backprop.png}
+    \end{minipage}\\
+    Regression: output layer $\rightarrow g(s)$ linear, trained with SSE\\
+    Classification: output layer $\rightarrow g(s)$ softmax/logistic, trained with negative log-likelihood (cross-entropy)\\
+    \textbf{CNN architecture}\\
+    Convolutional $\ell$: convolve 3D array with kernels and $g$\\
+    $s^\ell_{ij} = \sum_p\sum_q\sum_r h_{pqr}^\ell z^{\ell-1}_{i+p,j+q,0+r}$ (2D output), $z_{ij}^\ell = g(s_{ij}^\ell)$ and $h_{ijk}^\ell$ (3D kernel)\\
+    Pooling: reduce size of 3D array, maximum/mean\\
+    $z_{ijk}^\ell = \underset{p,q \in \{0,\dots, \Delta-1\}}{\max} \left\{z^{\ell - 1}_{\Delta i +p, \Delta j + q, k}\right\}$, $z^{\ell-1}_{i,j,k}$ (3D input)\\
+    Fully connected $\ell$: when img representation is 1D array $\rightarrow$ often output layer
+\end{cheatsheetbox}
+
+%------------ Data classification ---------------
+\begin{cheatsheetbox}{\texttt{Data classification}}{-0.15cm}
+    Decision region: $\mathcal{R}_j = \{x \in \mathbb{R}^d: f(x) = \omega_j\}$, class $\omega_j$\\
+    Confusion matrix: $P_{ij} = \mathrm{P}\{y = i, x \in \mathcal{R}_j\} = \int_{\mathcal{R}_j} p(x|y=i)P(y = i)dx$\\
+    Rel. freq.: $\hat{P}_{ij} = \frac{N_{ij}}{\sum_{p=0}^{K-1} \sum_{q=0}^{K-1} N_{pq}}$\\
+    Prob of error: $P(\mathrm{error}) = 1 - \sum_{i=0}^{K-1}P_{ii}$\\
+    \textbf{Loss function}\\
+    Binary: $L(y, \hat{y}) = \begin{cases} 0 \ \mathrm{if} \ \hat{y} = y\\ 1 \ \mathrm{otherwise}\end{cases}$\\
+    General: $L(y = \omega_i, \hat{y} = \omega_j) = L_{ij}$, $L_{ij} > 0 \text{ for } i \neq j$\\
+    \textbf{Ideal classifier (Bayes classifier)}\\
+    Binary: $\hat{y} = \arg\underset{\omega \in \Omega}{\max} \ P(y = \omega | x)$\\
+    General: {\footnotesize $f(x) =  \arg\underset{\omega \in \Omega}{\min} \ c_\omega(x)$, $c_\omega(x) = \sum_{y \in \Omega} L(y, \omega)P(y|x)$}\\
+    \textbf{Bayes law}\\
+    $P(y=i|x) = \frac{p(x|y=i)P(y=i)}{p(x)}$, $p(x) = \sum_{y\in \Omega}p(x|y)P(y)$\\
+    \textbf{Na\"ive Bayes classifier}\\
+    $\hat{y} =  \arg\underset{\omega \in \Omega}{\max} \prod_{i=1}^p p(x_i | y = k) \rightarrow$ features conditionally independent
+\end{cheatsheetbox}
+
+%------------ Linear classifiers ---------------
+\begin{cheatsheetbox}{\texttt{Linear classifiers}}{-0.25cm}
+    Those whose decision boundaries are hyperplanes.\\
+    One hot encoding: $y_i = \begin{cases} 1, \text{ if class $\omega_i$ occurs}\\ 0, \text{ otherwise}\end{cases}$\\
+    Log-llh.: $\hat{\beta} = \arg\underset{\beta}{\max} \ \ell(\beta)$, $\ell(\beta) = \sum_{i=1}^n \log P(y^{(i)}, x^{(i)})$
+    -- Logistic regression: $P(y = 1| x) = g(x^T\beta) \Rightarrow \ell(\beta) = \sum_{i = 1}^n \left\{y^{(i)}\log[g(x^{(i)T}\beta)] + (1- y^{(i)})\log[1 - g(x^{(i)T}\beta)]\right\}$\\
+    -- Softmax: $P(y_i = 1| x, \beta) = \frac{e^{s_i}}{\sum_{c=0}^{K-1}e^{s_c}}, \ s_i = \sum_{j = 0}^p \beta_{ji}x_j \Rightarrow \ell(\beta) = \sum_{m = 1}^n \sum_{i = 0}^{K-1}\left\{y_i^{(m)}\log[\hat{y}_i^{(m)}]\right\}$
+\end{cheatsheetbox}
+
+%------------ Support vector machines ---------------
+\begin{cheatsheetbox}{\texttt{Support vector machines}}{-0.25cm}
+    Hyperplane: $x \cdot w + b = 0 \Leftrightarrow x^Tw + b = 0$\\
+    Distance to the origin: $\frac{|b|}{||w||_2}$\\
+    Margin hyperplanes: $x^{(i)} \cdot w + b = \pm 1 , \ \mathrm{if} \ y^{(i)} = \pm 1$\\
+    Margin: $\frac{2}{||w||_2}$\\
+    Hard margin: linearly separable $\rightarrow \min \frac{1}{2}||w||^2_2 \rightarrow$ QP\\
+    Soft margin: not lin. separable $\rightarrow \min \frac{1}{2}||w||^2_2 + C \sum_{i = 1}^n \xi_i$\\
+    Hinge loss: $\xi_i = \max\left[0.1 - y^{(i)}(x^{(i)}\cdot w +b)\right]$\\
+    Kernel trick: non lin. SVM $\rightarrow k(x^{(i)}, x^{(j)}) = \phi(x^{(i)}) \cdot \phi(x^{(j)})$, linear $x^{(i)T}x^{(j)}$, rbf $e^{-\frac{1}{2\sigma^2}||x^{(i)}-x^{(j)}||_2^2}$, poly $(x^{(i)T}x^{(j)}+a)^b$
+\end{cheatsheetbox}
+
+%------------ Decision Trees and Random Forest ---------------
+\begin{cheatsheetbox}{\texttt{Decision Trees and Random Forest}}{-0.25cm}
+    \emph{A posteriori} dist.: $P(k|m) = \frac{1}{\#\mathcal{T}_m} \sum_{x^{(i)} \in \mathcal{T}_m} I(y^{(i)} = k)$, node $m$, indicator function $I(\cdot)$\\
+    $m$ is a leaf $\Rightarrow$ most probable label is $\hat{k} = \arg\underset{k}{\max} \ P(k|m)$\\
+    \textbf{Impurity}\\
+    Misclass. error: $i(m) = 1 - \underset{k}{\max} \ P(k|m) = 1 - P(\hat{k}(m)|m)$\\
+    Entropy: $i(m) = -\sum_{k=1}^K P(k|m)\log_2 P(k|m)$\\
+    Gini index: $i(m) = -\sum_{k=1}^K P(k|m)(1 - P(k|m))$\\
+    Tree training: minimize $I(T) = \sum_{m \in \tilde{T}}P(m)i(m)$\\
+    Impurity drop: $\Delta I = i(m) - \sum_{s \in S}\frac{p(s)}{p(m)}i(s)$, $m$ node is splitted into $s \in S$ children nodes\\
+    ID3: impurity criterion = entropy, stop criterion = when each leaf is pure\\
+    Bootstrap aggregation = bagging: regression -- averaging all functions learned in each bootstraped data set; classification -- averaging the \emph{a posteriori} learned probabilities in each data set\\
+    Random forest: ensemble of tree classifiers trained with bagging
+\end{cheatsheetbox}
+
+\makefooter
+
+\end{multicols}
+
+\end{document}
