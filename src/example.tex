@@ -1,0 +1,95 @@
+\documentclass[landscape,english,10pt,3col]{cheatsheet}
+
+% Set cheat sheet information
+\setcheatsheettitle{Example Cheat Sheet}
+\setcheatsheetversion{v1.0}
+\setcheatsheetdate{\today}
+\setcheatsheetauthor{Your Name}
+\setcheatsheetinstitution{Your Institution}
+\setcheatsheetsource{Your Course/Subject}
+
+\begin{document}
+
+\makecheatsheettitle
+
+\begin{multicols}{3}
+
+%------------ Example Section 1 ---------------
+\cheatsheetbox{Mathematical Formulas}{
+    Quadratic formula: $x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$\\
+    Pythagorean theorem: $a^2 + b^2 = c^2$\\
+    Euler's identity: $e^{i\pi} + 1 = 0$\\
+    Derivative of $e^x$: $\frac{d}{dx}e^x = e^x$\\
+    Integral of $\sin(x)$: $\int \sin(x) dx = -\cos(x) + C$
+}
+
+%------------ Example Section 2 ---------------
+\cheatsheetbox{Physics Formulas}{
+    Newton's second law: $F = ma$\\
+    Kinetic energy: $K = \frac{1}{2}mv^2$\\
+    Potential energy: $U = mgh$\\
+    Wave equation: $v = f\lambda$\\
+    Ohm's law: $V = IR$
+}
+
+%------------ Example Section 3 ---------------
+\cheatsheetbox{Statistics}{
+    Mean: $\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i$\\
+    Variance: $s^2 = \frac{1}{n-1}\sum_{i=1}^n (x_i - \bar{x})^2$\\
+    Standard deviation: $s = \sqrt{s^2}$\\
+    Normal distribution: $f(x) = \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$\\
+    Z-score: $z = \frac{x - \mu}{\sigma}$
+}
+
+\sectionbreak
+
+%------------ Example Section 4 ---------------
+\cheatsheetbox{Programming Concepts}{
+    \textbf{Big O Notation}\\
+    Constant: $O(1)$\\
+    Logarithmic: $O(\log n)$\\
+    Linear: $O(n)$\\
+    Linearithmic: $O(n \log n)$\\
+    Quadratic: $O(n^2)$\\
+    Exponential: $O(2^n)$\\
+    
+    \textbf{Data Structures}\\
+    Array access: $O(1)$\\
+    Linked list search: $O(n)$\\
+    Binary tree search: $O(\log n)$\\
+    Hash table access: $O(1)$ average
+}
+
+%------------ Example Section 5 ---------------
+\cheatsheetbox{Useful Identities}{
+    $\sin^2(x) + \cos^2(x) = 1$\\
+    $\tan(x) = \frac{\sin(x)}{\cos(x)}$\\
+    $\sin(2x) = 2\sin(x)\cos(x)$\\
+    $\cos(2x) = \cos^2(x) - \sin^2(x)$\\
+    $e^{ix} = \cos(x) + i\sin(x)$\\
+    $\ln(ab) = \ln(a) + \ln(b)$\\
+    $\log_a(b^c) = c\log_a(b)$
+}
+
+%------------ Example Section 6 ---------------
+\cheatsheetbox{Quick References}{
+    \textbf{Greek Letters}\\
+    $\alpha, \beta, \gamma, \delta, \epsilon$\\
+    $\zeta, \eta, \theta, \iota, \kappa$\\
+    $\lambda, \mu, \nu, \xi, \pi$\\
+    $\rho, \sigma, \tau, \upsilon, \phi$\\
+    $\chi, \psi, \omega$\\
+    
+    \textbf{Set Operations}\\
+    Union: $A \cup B$\\
+    Intersection: $A \cap B$\\
+    Difference: $A \setminus B$\\
+    Subset: $A \subseteq B$\\
+    Element of: $x \in A$
+}
+
+\end{multicols}
+
+\makefooter
+
+\end{document}
