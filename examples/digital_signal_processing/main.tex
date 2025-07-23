@@ -1,0 +1,172 @@
+\documentclass[10pt,3col]{cheatsheet}
+
+% Custom commands specific to this document
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+% Set cheat sheet information
+\setcheatsheettitle{\textbf{\texttt{DSP} Cheat Sheet}}
+\setcheatsheetversion{v1.0}
+\setcheatsheetdate{18/04/23}
+\setcheatsheetauthor{João Marafuz Gaspar -- 96240}
+\setcheatsheetinstitution{IST, 2023}
+\setcheatsheetsource{Digital Signal Processing Slides}
+\begin{document}
+
+\begin{multicols*}{3}
+
+%------------ Signals and systems ---------------
+\begin{cheatsheetbox}{Signals and systems}{-0.3cm}
+	$\delta(n) = \begin{cases} 1, & n = 0\\ 0, & \mathrm{otherwise}\end{cases} = u(n) - u(n - 1)$ \\
+    $u(n) = \begin{cases} 1, & n \geq 0\\ 0, & \mathrm{otherwise}\end{cases} = \sum_{k = -\infty}^n \delta(k)$ \\
+    complex exp: $x(n) = A\alpha^n = |A||\alpha|^ne^{j(\omega_0 n + \phi)}$\\
+    periodic iif $\omega_0 / (2 \pi) = k/N$ is rational \\
+    general case: $x(n) = \sum_{k = -\infty}^{+\infty} x(k) \delta(n - k)$ \\
+    linearity: $T\left\{a_1x_1(n) + a_2x_2(n)\right\} = a_1T\left\{x_1(n)\right\} + a_2T\left\{x_2(n)\right\} = a_1y_1(n) + a_2y_2(n)$ \\
+    time invariance: $y(n) = T\left\{x(n)\right\} \Rightarrow y(n - n_0) = T\left\{x(n - n_0)\right\}$ \\
+    causality: $x_1(n) = x_2(n), \forall_n \leq n_0 \Rightarrow y_1(n) = y_2(n), \forall_n \leq n_0$ \\
+    stability: $|x(n)| \leq B, \forall_n \wedge B \in \mathbb{R}^+ $\\
+    LTI: $y(n) = x(n) \ast h(n) = \sum_{k = -\infty}^{+\infty} x(k) h(n - k), h(n) = T\left\{\delta(n)\right\}$\\
+    $\sum_{n = A}^{B} r^n = \frac{r^A - r^{B + 1}}{1 - r}, r \neq 1$\\
+    causal LTI iif $h(n) = 0$ for all $n < 0$ \\
+    stable LTI iif $\sum_{n = -\infty}^{+\infty} |h(n)| < \infty$
+\end{cheatsheetbox}
+
+%------------ Fourier transform and sampling ---------------
+\begin{cheatsheetbox}{Fourier transform and sampling}{-0.6cm}
+	$X(e^{j\omega}) = \mathcal{F} \left\{x(n)\right\} = \sum_{n = -\infty}^{+\infty} x(n)e^{-j\omega n}$\\
+    $x(n) = \mathcal{F}^{-1}\left\{X(e^{j\omega})\right\} = \frac{1}{2\pi} \int_{-\pi}^{\pi} X(e^{j\omega})e^{j\omega n} d\omega$\\
+    \begin{tabular}{c c c}
+	    $x(n) \ast h(n)$ & $\longrightarrow$ & $X(e^{j\omega})H(e^{j\omega})$ \\
+	    $x(n - n_0)$ & $\longrightarrow$ & $e^{-j\omega n_0}X(e^{j\omega})$ \\
+	    $e^{j\omega_0 n}x(n)$ & $\longrightarrow$ & $X(e^{j(\omega - \omega_0)})$ \\
+        $x^\ast(n)$ & $\longrightarrow$ & $X^\ast(e^{-j\omega})$ \\
+        $x(n)$ is real & $\longrightarrow$ & $X(e^{-j\omega}) = X^\ast(e^{j\omega})$ \\
+        $x(n)$ is real & $\longrightarrow$ & $\mathrm{Re}\left\{X(e^{-j\omega})\right\} = \mathrm{Re}\left\{X(e^{j\omega})\right\}$ \\
+        $x(n)$ is real & $\longrightarrow$ & $\mathrm{Im}\left\{X(e^{-j\omega})\right\} = -\mathrm{Im}\left\{X(e^{j\omega})\right\}$ \\
+        $x(n)$ is real & $\longrightarrow$ & $\left|X(e^{-j\omega})\right| = \left|X(e^{j\omega})\right|$ \\
+        $x(n)$ is real & $\longrightarrow$ & $\angle X(e^{-j\omega}) = - \angle X(e^{j\omega})$
+	\end{tabular} \\
+    Sampling Theorem:\\
+    $x_c(t)$ verifies $\Omega_M < \Omega_s / 2$, then $x(n) = x_c(nT)$, $X(e^{j\omega}) = \frac{1}{T} \sum_{k = -\infty}^{+\infty} X_c\left(j\frac{\omega - 2\pi k}{T}\right)$ and $\omega = \Omega T \wedge T = 2 \pi / \Omega_s$ can be recovered without error, $\omega \in [-\pi, \pi[$\\
+\end{cheatsheetbox}
+
+%------------ Z transform ---------------
+\begin{cheatsheetbox}{Z transform}{-0.3cm}
+	$X(z) = TZ\left\{x(n)\right\} = \sum_{n = -\infty}^{+\infty} x(n) z^{-n}, z \in \mathbb{C}$\\
+    \begin{tabular}{c c c}
+        $x(n)$ & $X(z)$ & ROC \\
+	    $\delta(n)$ & $1$ & $\mathbb{C}$ \\
+        $\delta(n - n_0)$ & $z^{-n_0}$ & $\mathbb{C}$ or $\mathbb{C} \setminus \{0\} \ (n_0 > 0)$ \\
+        $a^nu(n)$ & $\frac{1}{1 - az^{-1}}$ & $|z| > |a|$ \\
+        $-a^nu(-n-1)$ & $\frac{1}{1 - az^{-1}}$ & $|z| < |a|$ \\
+        $na^nu(n)$ & $\frac{az^{-1}}{(1 - az^{-1})^2}$ & $|z| > |a|$ \\
+        $-na^nu(-n-1)$ & $\frac{az^{-1}}{(1 - az^{-1})^2}$ & $|z| < |a|$ \\
+        $\cos(\omega_0 n)u(n)$ & $\frac{1 - \cos(\omega_0)z^{-1}}{1 - 2\cos(\omega_0)z^{-1} + z^{-2}}$ & $|z| > 1$ \\
+        $\sin(\omega_0 n)u(n)$ & $\frac{\sin(\omega_0)z^{-1}}{1 - 2\cos(\omega_0)z^{-1} + z^{-2}}$ & $|z| > 1$ \\
+	\end{tabular} \\
+\end{cheatsheetbox}
+
+\sectionbreak
+
+%------------ Title ---------------
+\makecheatsheettitle
+
+%------------ Z transform (cont.) ---------------
+\begin{cheatsheetbox}{Z transform (cont.)}{-0.3cm}
+	$X(z) = X(re^{j\omega}) = \mathcal{F}\left\{x(n)r^{-n}\right\}$\\
+    \begin{tabular}{c c c}
+        $x(n)$ & $X(z)$ & ROC \\
+	    $ax(n) + by(n)$ & $aX(z) + bY(z)$ & $\mathrm{ROC} \supset (R_x \cap R_y)$\\
+        $x(n - n_0)$ & $z^{-n_0}X(z)$ & $R_x (\text{with or without } 0)$\\
+        $e^{j\omega_0 n}x(n)$ & $X(e^{-j\omega_0}z)$ & $R_x$\\
+        $z_0^nx(n)$ & $X(z/z_0)$ & $z/z_0 \in R_x$\\
+        $x(-n)$ & $X(z^{-1})$ & $z^{-1} \in R_x$\\
+        $x^\ast(n)$ & $X^\ast(z^\ast)$ & $R_x$\\
+        $x(n) \ast y(n)$ & $X(z)Y(z)$ & $\mathrm{ROC} \supset (R_x \cap R_y)$\\
+        $nx(n)$ & $-z\frac{dX(z)}{dz}$ & $R_x$\\
+	\end{tabular} \\
+    $x(n) = \frac{1}{2\pi j}\oint_C X(z)z^{n-1}dz$\\
+    Causality: the ROC is the exterior of a circle outside the outermost pole; and b) the order of the numerator cannot be greater than the order of the denominator \\
+    Stability: the ROC of its transfer function $H(z)$ contains the unit circle $|z| = 1$\\
+\end{cheatsheetbox}
+
+%------------ Discrete Fourier transform ---------------
+\begin{cheatsheetbox}{Discrete Fourier transform}{-0.3cm}
+    atoms: $\phi_0, \phi_1, \dots, \phi_{M-1} \in \mathbb{C}^N$\\
+    $x = c_0 \phi_0 + c_1 \phi_1 + \cdots + c_{M-1}\phi_{M-1}$\\
+    coefficients: $\mathbf{c} = \left[c_0 | c_1 \dots | c_{M-1}\right]$\\
+    dictionary: $\Phi = \left[\phi_0 | \phi_1 \dots | \phi_{M-1}\right]$\\
+	$\hat{\mathbf{c}} = \mathrm{arg} \ \underset{\mathbf{c}}{\mathrm{min}}||x - \Phi \mathbf{c}||_2^2 + \lambda||\mathbf{c}||_0$\\
+    $\phi_k(n) = \frac{1}{N}e^{j\frac{2\pi}{N}kn}R_N(n), \ R_N(n) = u(n) - u(n - N)$\\
+    $\langle \phi_k, \phi_\ell\rangle = \sum_{n=0}^{N-1} \phi_k(n) \phi_\ell^\ast(n) = \frac{1}{N} \delta(k - \ell), \ k, \ell = 0, 1, \dots, N-1$\\
+    $X(k) = \left(\sum_{n=0}^{N-1}x(n)e^{-j\frac{2\pi}{N}kn}\right)R_N(k)$\\
+    $x(n) = \left(\frac{1}{N}\sum_{k = 0}^{N-1}X(k)e^{j\frac{2\pi}{N}kn}\right) R_N(n)$\\
+    $x(n) = \delta(n - n_0) \Rightarrow X(k) = e^{-j\frac{2\pi}{N}kn_0}R_N(k)$\\
+    $x(n) = e^{j\frac{2\pi}{N}k_0 n} \Rightarrow X(k) = N\delta((k - k_0))_NR_N(k)$\\
+    $X(k) = X(z)|_{z = e^{j \frac{2\pi}{N} k}}$\\
+    $x'(n) = \sum_{\ell = -\infty}^{\infty} x(n + \ell N)$\\
+    $\tilde{x}(n) = x((n))_N, \ ((n))_N = n \text{ modulo } N$\\
+    $\tilde{x}(n - \ell) = \frac{1}{N}\sum_{k = 0}^{N-1} X(k) e^{j\frac{2\pi}{N}(n - \ell)k}$\\
+    circular shift: $x((n - 1))_N R_N(n)$\\
+    circ. conv.: $x(n) \circledast_N y(n) = \left[\sum_{k = 0}^{N - 1} x(k) \tilde{y}(n - k)\right]R_N(n)$\\
+    \begin{tabular}{c c}
+	    $ax(n) + by(n)$ & $aX(k) + bY(k)$ \\
+	    $x((n - n_0))_NR_N(n)$ & $e^{-j\frac{2\pi}{N} n_0k}X(k)$ \\
+	    $x(n) \circledast_N y(n)$ & $X(k)Y(k)$ \\
+        $x(n) y(n)$ & $\frac{1}{N}X(k)\circledast_N Y(k)$ \\
+        $x(n) \text{ real}$ & $X(k) = X^\ast(N - k)$ \\
+        $x(n)$ real & $\mathrm{Re}\left\{X(k)\right\} = \mathrm{Re}\left\{X(N - k)\right\}$ \\
+        $x(n)$ real & $\mathrm{Im}\left\{X(k)\right\} = -\mathrm{Im}\left\{X(N - k)\right\}$ \\
+        $x(n)$ real & $\left|X(k)\right| = \left|X(N - k)\right|$ \\
+        $x(n)$ real & $\angle X(k) = - \angle X(N - k)$
+	\end{tabular} \\
+\end{cheatsheetbox}
+
+\sectionbreak
+
+%------------ Least squares Method ---------------
+\begin{cheatsheetbox}{Least squares Method}{-0.3cm}
+	$\hat{\theta} = \mathrm{arg} \ \underset{\theta}{\mathrm{min}} \ E(\theta) = \mathrm{arg} \ \underset{\theta}{\mathrm{min}} \ ||y - H\theta||^2 = (H^TH)^{-1}H^Ty$\\
+    $H^TH$ needs to be non-singular $\Leftrightarrow$ more than two data points (independent)
+\end{cheatsheetbox}
+
+%------------ Random signals and Parameter estimation ---------------
+\begin{cheatsheetbox}{Random signals and Parameter estimation}{-0.3cm}
+	$\mu = \mathrm{E} \left\{x\right\}, \ R = \mathrm{E} \left\{(x - \mu)(x - \mu)^T\right\} = \sum_{i = 1}^n \lambda_iv_iv_i^T$\\
+    $y = Ax \Rightarrow \mu_y = A\mu_x \wedge R_y = AR_xA^T$\\
+    $p(x) = 1 / \sqrt{(2\pi)^n|R|} e^{-\frac{1}{2}(x-\mu)^TR^{-1}(x - \mu)}$\\
+    $b(\theta) = \mathrm{E} \left\{\hat{\theta}\right\} - \theta$
+\end{cheatsheetbox}
+
+%------------ Maximum likelihood ---------------
+\begin{cheatsheetbox}{Maximum likelihood}{-0.3cm}
+    $L(\theta) = p(x_0, \dots, x_{N-1}; \theta) = \prod_{i=0}^{N-1}p(x_i | \theta)$\\
+	$\ell(\theta) = \log{L(\theta)} \rightarrow \hat{\theta}_\mathrm{ML} =  \mathrm{arg} \ \underset{\theta}{\mathrm{max}} \ \ell(\theta)$\\
+    $I(\theta) = -\mathrm{E} \left\{\frac{\partial^2\ell}{\partial \theta^2}\right\} \ \mathrm{CRLB} = \frac{1}{I(\theta)}$\\
+    $\mathrm{E} \left\{\hat{\theta}\right\} = \theta \Leftrightarrow\mathrm{var}\left\{\hat{\theta}\right\} = \mathrm{E} \left\{\hat{\theta}^2\right\} - \mathrm{E}^2\left\{\hat{\theta}\right\} \geq \mathrm{CRLB}$, the estimator is unbiased
+\end{cheatsheetbox}
+
+%------------ Miscellaneous ---------------
+\begin{cheatsheetbox}{Miscellaneous}{-0.3cm}
+    $\sum_{k = -\infty}^{\infty} e^{jk\omega} = 2\pi \delta(\omega)$\\
+    $X \sim N(\mu, \sigma^2) \Rightarrow P(X = x) = \frac{1}{\sqrt{2\pi \sigma^2}} e^{-\frac{1}{2\sigma^2} (x - \mu)^2}$\\
+    FIR: $\hat{y}(n) = \sum_{k = 0}^p b_k x(n - k), \ n = p+1, \dots, N$\\
+    IIR: $y(n) = \sum_{k = 1}^N a_k y(n - k) + \sum_{k = 0}^M b_k x(n - k)$\\
+    $\hat{\theta}_\mathrm{MAP} = \mathrm{arg} \ \underset{\theta}{\mathrm{max}} \ p(\theta |x), \ p(\theta |x) = \frac{p(x|\theta) p(\theta)}{p(x)}$\\
+    If $N \geq N_x + N_y - 1$, linear and circular convolutions are the same\\
+    $\displaystyle \sum_{n = 0}^{2N-1}x(n) e^{-j\frac{2\pi}{2N}kn} = \sum_{n = 0}^{N-1}x(n) e^{-j\frac{2\pi}{2N}kn} = \sum_{n = N}^{2N-1}x(n) e^{-j\frac{2\pi}{2N}kn}$\\
+    Bernoulli ($p$): $P(x) = p^x(1 - p)^{1 - x}, \ x \in \{0, 1\}$\\
+    Binomial ($n, p$): $P(x) = \binom{n}{x} p^x(1 - p)^{n - x}, \ x \{0,\dots, n\}$\\
+    Uniform ($a, b$): $P(x) = \frac{1}{b - a}, \ x \in ]a, b[$\\
+    Exponential ($\beta$): $P(x) = \frac{1}{\beta} e^{-\frac{x}{\beta}}, \ x > 0$\\
+    Normal ($\mu, \sigma^2$): $P(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2\sigma^2}(x - \mu)^2}, \ x \in \mathbb{R}$\\
+    Rayleigh ($\sigma^2$): $P(x) = \frac{x}{\sigma^2}e^{-\frac{x^2}{2\sigma^2}}, \ x > 0$
+\end{cheatsheetbox}
+
+\makefooter
+\end{multicols*}
+\end{document}
+
