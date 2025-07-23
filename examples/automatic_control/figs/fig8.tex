@@ -1,0 +1,15 @@
+\begin{tikzpicture}[scale = 1]
+	\draw[-latex] (-2,0) -- (0.5,0) node [below] {$\sigma$};
+	\draw[-latex] (0,-2) -- (0,2) node [left] {$j\omega$};
+	
+	\foreach \Point in {(-1,0.366), (-1,-0.366)}{
+        \node at \Point {\textcolor{bblue}{$\pmb{\times}$}};
+    }
+    \foreach \Point in {(-1,0.836), (-1,-0.836)}{
+        \node at \Point {\textcolor{oorange}{$\pmb{\times}$}};
+    }
+    \foreach \Point in {(-1,1.358), (-1,-1.358)}{
+        \node at \Point {\textcolor{yyellow}{$\pmb{\times}$}};
+    }
+    \draw[dashed] (-1,-1.5) -- (-1,1.5);
+\end{tikzpicture}

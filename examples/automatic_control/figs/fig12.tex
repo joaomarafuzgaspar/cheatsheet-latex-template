@@ -1,0 +1,36 @@
+\begin{tikzpicture}[scale = 1]
+	\draw[-latex] (-0.5,0) -- (2,0) node [below] {};
+	\draw[-latex] (0,-2) -- (0,2) node [left] {};
+	\draw[bblue, very thick] (0,1.5) arc (90:-90:1.5);
+	\draw[bblue, very thick] (0,0.5) arc (90:-90:0.5);
+	\draw[bblue, very thick] (0, -1.5) -- (0, -0.5);
+	\draw[bblue, very thick] (0, 1.5) -- (0, 0.5);
+	\node [bblue] at (1.7, 1.5) {contorno $A$};
+	\node [] at (-0.4, 1) {$j\infty$};
+	\node [] at (-0.5, -1) {$-j\infty$};
+	\node [bblue] at (0.7, 0.2) {$s_0$};
+	\node [] at (-0.2, 0.25) {$\varepsilon$};
+	\node [] at (0.9, -0.25) {$\infty$};
+	\draw [->, dashed, thick] (0,0) -- (1.3,-0.75);
+	\draw [->, dashed, thick] (0,0) -- (0.25,0.433);
+	
+    \foreach \Point in {(0, 1), (0, -1)}{
+        \node at \Point {\textcolor{bblue}{\rotatebox[origin=c]{90}{$\pmb{>}$}}};
+    }
+    
+    \foreach \Point in {(0.354, -0.354)}{
+        \node at \Point {\textcolor{bblue}{\rotatebox[origin=c]{45}{$\pmb{>}$}}};
+    }
+    \foreach \Point in {(0.354, 0.354)}{
+        \node at \Point {\textcolor{bblue}{\rotatebox[origin=c]{135}{$\pmb{>}$}}};
+    }
+    \foreach \Point in {(1.061, -1.061)}{
+        \node at \Point {\textcolor{bblue}{\rotatebox[origin=c]{45}{$\pmb{<}$}}};
+    }
+    \foreach \Point in {(1.061, 1.061)}{
+        \node at \Point {\textcolor{bblue}{\rotatebox[origin=c]{135}{$\pmb{<}$}}};
+    }
+    \foreach \Point in {(0.5, 0)}{
+        \node at \Point {\textcolor{bblue}{\textbullet}};
+    }
+\end{tikzpicture}
