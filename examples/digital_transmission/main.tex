@@ -1,0 +1,289 @@
+\documentclass[10pt]{article}
+\usepackage[landscape]{geometry}
+\usepackage{url}
+\usepackage{multicol}
+\usepackage{microtype,array,lmodern,graphicx}
+\newcommand\mytab[1]{\begin{tabular}[t]{r}#1\end{tabular}}
+\newcommand\rotbox[1]{\rotatebox[origin=c]{270}{\mytab{#1}}}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{esint}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{positioning}
+\usepackage{amsmath,amssymb}
+\usepackage{tabularx}
+\usepackage{chessfss}
+\usepackage{colortbl}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{amsmath,amssymb}
+\usepackage{ragged2e}
+\usepackage{bodegraph}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{verbatim}
+\usepackage{siunitx}
+
+% Colors
+\definecolor{bblue}{rgb}{0, 0.4470, 0.7410}
+\definecolor{oorange}{rgb}{0.8500, 0.3250, 0.0980}
+\definecolor{yyellow}{rgb}{0.9290 0.6940 0.1250}
+\definecolor{ppurple}{rgb}{0.4940 0.1840 0.5560}
+\definecolor{ggreen}{rgb}{0.4660 0.6740 0.1880}
+\definecolor{bbblue}{rgb}{0.3010 0.7450 0.9330}
+
+\makeatletter
+
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.5}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\title{TDig Cheat Sheet}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+
+\advance\topmargin-.8in
+\advance\textheight3in
+\advance\textwidth3in
+\advance\oddsidemargin-1.5in
+\advance\evensidemargin-1.5in
+\parindent0pt
+\parskip2pt
+\newcommand{\hr}{\centerline{\rule{3.5in}{1pt}}}
+\begin{document}
+
+\begin{multicols*}{2}
+
+\tikzstyle{mybox} = [draw=black, fill=white, very thick, rectangle, rounded corners, inner sep=15pt, inner ysep=10pt]
+\tikzstyle{fancytitle} =[fill=black, text=white, font=\bfseries]
+\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em, thick]
+\tikzstyle{sum} = [draw, circle, node distance=1cm, thick]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+%------------ Title ---------------
+\begin{tikzpicture}
+\node [] (box){%
+    \huge
+    \begin{minipage}{0.45\textwidth}
+        \begin{center}
+            {\huge \texttt{TDig} \textbf{\fontfamily{cmss}\selectfont Cheat Sheet}}\\
+            \vspace{-0.5cm}
+            {\footnotesize \textcolor{bblue}{\texttt{[v1.0 - 22/01/23]}}}
+        \end{center}
+    \end{minipage}
+};
+\end{tikzpicture}
+
+%------------ Miscellaneous ---------------
+\begin{tikzpicture}
+\centering
+\node [mybox] (box){%
+    \begin{minipage}{0.45\textwidth}
+        \begin{tabularx}{\textwidth}{ccc}
+            \textbf{Fourier Transform} & \textbf{Inverse Transform} & \textbf{Rayleigh Relation}\\
+            \toprule
+            \scriptsize $M(f) = \int_{-\infty}^{+\infty} m(t) e^{-j2\pi ft} \ dt$ & \scriptsize $m(t) = \int_{-\infty}^{+\infty} M(f) e^{+j2\pi ft} \ df$ & \scriptsize $\int_{-\infty}^{+\infty} |m(t)|^2 \ dt = \int_{-\infty}^{+\infty} |M(f)|^2 \ df$\\
+            \bottomrule
+        \end{tabularx}
+        \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+            \textbf{Time Domain} & \textbf{Frequency Domain}\\
+            \toprule
+            $m(t - t_d)$ & $M(f)e^{-j2\pi ft_d}$\\
+            $m(\alpha t)$ & $\frac{1}{|\alpha|}M\left(\frac{f}{\alpha}\right)$\\
+            $m(t)\cos(2\pi f_c t + \theta)$ & $\frac{1}{2} \left[M(f-f_c)e^{+j\theta} + M(f+f_c)e^{-j\theta}\right]$\\
+            $\mathrm{rect}\left(\frac{t}{T}\right) = \begin{cases} 1, & |t| \leq T/2\\ 0, & |t| > T/2\end{cases}$ & $T\mathrm{sinc}(fT)$\\
+            $\mathrm{tri}\left(\frac{t}{T}\right) = \begin{cases} 1 - |t|/T, & |t| \leq T\\ 0, & |t| > T\end{cases}$ & $T\mathrm{sinc}^2(fT)$\\
+            $e^{-\pi(bt)^2}$ & $\frac{1}{b}e^{-\pi(f/b)^2}$\\
+            $u(t) = \begin{cases} 1, & t > 0\\ 0, & t| < 0\end{cases}$ & $\frac{1}{j2\pi f} + \frac{1}{2}\delta(f)$\\
+            $\mathrm{sinc}(2B t)$ & $\frac{1}{2B}\mathrm{rect}\left(\frac{f}{2B}\right)$\\
+            $\mathrm{sinc}^2(2B t)$ & $\frac{1}{2B}\mathrm{tri}\left(\frac{f}{2B}\right)$\\
+            $1$ & $\delta(f)$\\
+            $\delta(t - t_d)$ & $e^{-j2\pi f t_d}$\\
+            $\cos(2\pi f_c t + \theta)$ & $\frac{1}{2} \left[\delta(f-f_c)e^{+j\theta} + \delta(f+f_c)e^{-j\theta}\right]$\\
+            \bottomrule
+        \end{tabularx}
+        \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+            $\cos$\textbf{Trigonometry} & $\sin$\textbf{Trigonometry}\\
+            \toprule
+            $\cos(\alpha \pm \beta) = \cos\alpha\cos\beta \mp \sin\alpha\sin\beta$ & $\sin(\alpha \pm \beta) = \sin\alpha\cos\beta \pm \cos\alpha\sin\beta$\\
+            $\cos^2(\alpha) = \frac{1}{2}\left[1 + \cos(2 \alpha)\right]$ & $\sin^2(\alpha) = \frac{1}{2}\left[1 - \cos(2 \alpha)\right]$\\
+        \end{tabularx}
+        \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+            $2\cos\alpha\cos\beta = \cos(\alpha - \beta) + \cos(\alpha + \beta)$ & $2\sin\alpha\cos\beta = \sin(\alpha - \beta) + \sin(\alpha + \beta)$ & $2\sin\alpha\sin\beta = \cos(\alpha - \beta) - \cos(\alpha + \beta)$\\
+            \bottomrule
+        \end{tabularx}
+        \textbf{Gaussian distribution:} $X \sim N(\mu, \sigma^2) \Rightarrow f_X(x) = \frac{1}{\sqrt{2\pi \sigma^2}}e^{-\frac{(x - \mu)^2}{2\sigma^2}}$\\
+        $Q-$\textbf{function:} $Q\left(\frac{x-\mu}{\sigma}\right) = \frac{1}{\sqrt{2\pi\sigma^2}}\int_x^{+\infty} e^{-\frac{(y - \mu)^2}{2\sigma^2}} \ dy \qquad Q(x) = \frac{1}{2}\mathrm{erfc}\left(\frac{x}{\sqrt{2}}\right)$
+    \end{minipage}
+};
+\node[fancytitle, right=10pt] at (box.north west) {\fontfamily{cmss}\selectfont Miscellaneous};
+\end{tikzpicture}
+
+%------------ Baseband Communication ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.45\textwidth}
+        \textbf{PSD line code:} $G_x(f) = \sigma_A^2 \frac{|P(f)|^2}{T_s} + \frac{m_A^2}{T_s^2} \sum_{m = -\infty}^{+\infty} \left|P\left(\frac{m}{T_s}\right)\right|^2 \delta \left(f - \frac{m}{T_s}\right)$ \\
+        $p_{A_k}(a) = \sum_{k = 0}^{M-1} p_k\delta(a - a_k) \qquad m_A = \mathbb{E}\left\{A_k\right\} = \int_{-\infty}^{+\infty} ap_{A_k}(a) \ da$\\
+        $\sigma_A^2 = \mathbb{E}\left\{A_k^2\right\} - \mathbb{E}^2\left\{A_k\right\} = \mathbb{E}\left\{A_k^2\right\} - m_A^2 = \int_{-\infty}^{+\infty} a^2p_{A_k}(a) \ da - m_A^2$\\
+        \textbf{Energy of $i$-th symbol:} $E_{s_i} = \int_{-\infty}^{+\infty} |s_i(t)|^2 \ dt$\\
+        \textbf{Average energy of symbol:} $\overline{E}_s = \sum_{i = 0}^{M-1} E_{s_i} p_i$~\\
+        \textbf{Line code power:} $P_s = \overline{E}_s / T_s$\\
+        \textbf{Power:} $P_x = \int_{-\infty}^{+\infty} G_x(f) \ df = \int_{-\infty}^{+\infty} |X(f)|^2 \ df = \int_{-\infty}^{+\infty} |x(t)|^2 \ dt$
+	\end{minipage}
+};
+\node[fancytitle, right=10pt] at (box.north west) {\fontfamily{cmss}\selectfont 2. Baseband Communication};
+\end{tikzpicture}
+
+%------------ Baseband Communication (cont.) ---------------
+\begin{tikzpicture}
+\node [mybox] (box){% 
+    \begin{minipage}{0.45\textwidth}
+        \textbf{Matched Filter:}\\
+        \textbf{Gen. noise:} $H_\mathrm{opt}(f) = k\frac{P^*(f)\exp(-2j\pi f t_0)}{G_w(f)} \Rightarrow \mathrm{PSNR} = \int_{-\infty}^{+\infty} \frac{|P(f)|^2}{G_w(f)} \ df$\\
+        \textbf{White:} {\footnotesize $G_w(f) = \frac{N_0}{2} \Rightarrow h_\mathrm{opt}(t) = kp(t_0 - t) \Rightarrow \mathrm{PSNR} = \frac{2E_p}{N_0}$ where $E_p = \int_{-\infty}^{+\infty} |p(t)|^2 \ dt$}\\
+        \textbf{Default:} $t_0 = 0$ is assumed\\
+        $\mathrm{PSNR} = \frac{|y(t_0)|^2}{\mathbb{E}\left\{n^2(t)\right\}} = \frac{|y(t_0)|^2}{\sigma_n^2}$\\
+        $|y(t_0)|^2 = \left|\int_{-\infty}^{+\infty} H(f) P(f) \exp(j2\pi ft) \ df\right|^2$\\
+        $\sigma_n^2 = \int_{-\infty}^{+\infty} G_n(f)\ df = \int_{-\infty}^{+\infty} G_w(f) |H(f)|^2 \ df$\\
+        $p(t) \ast h_\mathrm{opt}(t) = \int_{-\infty}^{+\infty} h_\mathrm{opt}(\lambda) p(t - \lambda) \ d\lambda = k\int_{-\infty}^{+\infty} p(t_0 - \lambda) p(t - \lambda) \ d\lambda$\\
+        \noindent\makebox[\linewidth]{\rule{\textwidth}{0.8pt}}
+        \textbf{PAM with raised-cosine:} $B_T^\mathrm{NRZ} = \frac{r_s}{2} (1 + \alpha) \ B_T^\mathrm{RZ} = r_s (1 + \alpha) \ r_s = \frac{r_b}{\log_2(M)}$\\
+        \textbf{Raised cosine:}\\[-1.0cm]
+        \begin{center}
+            $h(t) = \mathrm{sinc}\left(\frac{t}{T_b}\right) \frac{\cos\left(\frac{\alpha \pi t}{T_b}\right)}{1 - \left(\frac{2\alpha t}{T_b}\right)^2}$\\
+        $H(f) = 
+        \begin{cases}
+            T_b, \ |f| \leq \frac{1-\alpha}{2T_b}\\
+            \frac{T_b}{2}\left\{1 - \cos\left[\frac{\pi T_b}{\alpha} \left(|f| - \frac{1 + \alpha}{2T_b}\right)\right]\right\}, \ \frac{1-\alpha}{2T_b} < |f| < \frac{1+\alpha}{2T_b}\\
+            0, |f| \geq \frac{1+\alpha}{2T_b}
+        \end{cases}$\\
+        $\int_{-\infty}^{+\infty} H(f) \ df = 1 \qquad \int_{-\infty}^{+\infty} \mathrm{sinc}(x) \ dx = 1 \qquad \int_{-\infty}^{+\infty} \delta(x) \ dx = 1$
+        \end{center}
+        \noindent\makebox[\linewidth]{\rule{\textwidth}{0.8pt}}
+        \textbf{Equalizer:} $2N+1$ taps; $NT$ delayed records; Goal: mitigate ISI\\
+        $\mathbf{c} = P^{-1}
+        \begin{bmatrix}
+            0 & 1 & 0
+        \end{bmatrix}^T$\\
+        $p_\mathrm{eq}(t) = c_{-1} \delta(t) + c_0 \delta(t - T) + c_1 \delta(t - 2T)$\\
+        $H_\mathrm{eq}(f) =  \mathcal{F}\left\{p_\mathrm{eq}(t)\right\} =  \mathcal{F}\left\{c_{-1} \delta(t) + c_0 \delta(t - T) + c_1 \delta(t - 2T)\right\}$\\
+        $R_x[\tau] = \mathbb{E}\left\{x(t)x^*(t-\tau)\right\} = \mathcal{F}^{-1}\left\{G_x(f)\right\}$\\
+        \noindent\makebox[\linewidth]{\rule{\textwidth}{0.8pt}}
+        \textbf{Gram-Schmidt Orthogonalization:}\\
+        $s_0(t) \neq 0 \ \forall_t \Rightarrow g_0(t) = s_0(t)$\\
+        $\psi_0(t) = \frac{g_0(t)}{\sqrt{E_{g_0}}}$\\
+        $s_1(t) \neq 0 \ \forall_t \Rightarrow g_1(t) = s_1(t) - (s_1, \psi_0)\psi_0(t)$\\
+        $\psi_1(t) = \frac{g_1(t)}{\sqrt{E_{g_1}}}$\\
+        $s_2(t) \neq 0 \ \forall_t \Rightarrow g_2(t) = s_2(t) - (s_2, \psi_1)\psi_1(t) - (s_2, \psi_0)\psi_0(t)$\\
+        $\psi_2(t) = \frac{g_2(t)}{\sqrt{E_{g_2}}}$...\\
+        $E_{s_i} = \int_{-\infty}^{+\infty} s_i^T(t)s_i(t) \ dt = ||s_i||^2 = ||s_i - (0,0)||^2 = d_{0i}^2$\\
+        $(s_i, s_j) = \int_{-\infty}^{+\infty} s_i^T(t)s_j(t) \ dt$\\
+        \noindent\makebox[\linewidth]{\rule{\textwidth}{0.8pt}}
+        
+	\end{minipage}
+};
+\node[fancytitle, right=10pt] at (box.north west) {\fontfamily{cmss}\selectfont 2. Baseband Communication (cont.)};
+\end{tikzpicture}
+
+%------------ Information Theory ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.45\textwidth}
+        $m_i$ only on leaves $\Rightarrow$ prefix code (instantaneous and uniquely decodable)\\
+        Not prefix code $\Rightarrow$ not inst.\\
+        $m_i + m_j = m_k \Rightarrow$ not uniq. dec.\\
+        Natural binary ($\# \mathcal{A} = M$): $\lceil \log_2(M) \rceil$ [bits/symbol]\\
+        $r_b = r_s \lceil \log_2(M) \rceil \qquad \mathrm{Redundancy} = D - H(\mathcal{A}) \qquad D = \log_2(M)$\\
+        $I(m_i) = \log_2(1/p_i)$ [bits]\\
+        $H(\mathcal{A}) = \sum_{i = 1}^M p_iI(m_i)$ [bits/symbol]\\
+        Info bit rate: $r_s H(\mathcal{A}) \leq r_b$ [bits/s]\\
+        Average word length: $\overline{L} = \sum_{i}^M p_i \ell_i$ [bits/symbol]\\
+        Efficiency: $\eta = \frac{H(\mathcal{A})}{\overline{L}}$\\
+        $T_\mathrm{min} = \frac{\#\mathrm{src}_\mathrm{symb} \times L_\mathrm{min}}{r_b} \qquad T_\mathrm{max} = \frac{\#\mathrm{src}_\mathrm{symb} \times L_\mathrm{max}}{r_b} \qquad T_\mathrm{av} = \frac{\#\mathrm{src}_\mathrm{symb} \times \overline{L}}{r_b}$\\
+        $P(e) = \sum_{i}P(x_i) (1 - p_{ii})$\\
+        $H(Y|X) = \sum_{i = 1}^M\sum_{j=1}^N P(x_i, y_j) \log_2\left(\frac{1}{P(y_j | x_i)}\right) = H(X, Y) - H(X)$\\
+        Mutual info: $I(X, Y) = H(X) - H(X|Y) = H(Y) - H(Y|X) = \sum_{i = 1}^M\sum_{j=1}^N P(x_i, y_j)\log_2\left[\frac{P(x_i, y_j)}{P(x_i) P(y_j)}\right]$\\
+        BSC: $H(p) = p\log_2\left(\frac{1}{p}\right) + (1-p)\log_2\left(\frac{1}{1-p}\right)$\\
+        BSC: $C = 1 - H(p)$, BEC: $C = 1 - \varepsilon$, Generalized: $C = \mathrm{max} \ I(X, Y)$ [bit/transmission]\\
+        Channel cap.: $r_b < C = B \log_2\left(1 + \frac{P}{N_0 B}\right) = B \log_2\left(1 + \mathrm{SNR}\right) \Rightarrow B_\mathrm{min} = \frac{r_b}{\log_2(1 + \mathrm{SNR})}$
+    \end{minipage}
+};
+\node[fancytitle, right=10pt] at (box.north west) {\fontfamily{cmss}\selectfont 1. Information Theory};
+\end{tikzpicture}
+
+%------------ Bandpass Communication ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.8\textwidth}
+        \textbf{Bandpass Process:} $s(t) = \mathrm{Re}\left\{z(t)e^{j2 \pi f_c t}\right\} \qquad z(t) = I(t) + jQ(t)$\\
+        $s(t) = A(t)\cos\left[2\pi f_c t + \phi(t)\right] = \underbrace{A(t)\cos(\phi)}_{I(t)}\cos(2\pi f_c t) - \underbrace{A(t)\sin(\phi)}_{Q(t)}\sin(2\pi f_c t)$\\
+        $A(t) = \sqrt{I^2(t) + Q^2(t)} \qquad \phi(t) = \mathrm{arctan}_2(Q(t), I(t))$\\
+        $G_s(f) = \frac{1}{4}\left[G_z(-f-f_c) + G_z(f-f_c)\right]$\\
+        \noindent\makebox[\linewidth]{\rule{\textwidth}{0.8pt}}
+        $M-$\textbf{PAM:} $G_s(f) = \frac{d^2(M^2-1)}{12T_s} \left[\left|G(f + f_c)\right|^2 + \left|G(f - f_c)\right|^2\right] \qquad \overline{P}_\mathrm{PAM} = \frac{d^2(M^2 - 1)}{6T_s}E_g \qquad P_b = \frac{2(M-1)}{M\log_2(M)}Q\left(\sqrt{\frac{6\overline{E}_b\log_2(M)}{(M^2-1)N_0}}\right)$\\
+
+        $M-$\textbf{PSK:} $G_s(f) = \frac{A^2}{4T_s} \left[\left|G(f + f_c)\right|^2 + \left|G(f - f_c)\right|^2\right] \qquad \overline{P}_\mathrm{PSK} = \frac{A^2}{2T_s}E_g \qquad P_b = \frac{2}{\log_2(M)}Q\left[\sqrt{\frac{2E_b\log_2(M)}{N_0}}\sin\left(\frac{\pi}{M}\right)\right]$\\
+
+        $M-$\textbf{QAM:} $G_s(f) = \frac{d^2(M - 1)}{6T_s} \left[\left|G(f + f_c)\right|^2 + \left|G(f - f_c)\right|^2\right] \qquad \overline{P}_\mathrm{QAM} = \frac{d^2(M - 1)}{3T_s}E_g \qquad P_b = \frac{4}{\log_2(M)}\left(1 - \frac{1}{\sqrt{M}}\right)Q\left(\sqrt{\frac{3\overline{E}_b\log_2(M)}{(M-1)N_0}}\right)$\\
+
+        $M$\textbf{SK:} $G_z(f) = \frac{16A^2T_b}{\pi^2} \left[\frac{\cos(2\pi f T_b)}{1 - 16f^2T_b^2}\right]^2 \qquad P_b = \frac{M}{2}Q\left(\sqrt{\frac{E_b}{N_0} \log_2(M)}\right)$ \big| $\underbrace{\textbf{Orthogonal mod.:}}_{\textbf{coherent FSK, ASK}} \ P_b = (M-1)Q\left(\sqrt{\frac{E_b\log_2(M)}{N_0}}\right) \approx Q\left(\sqrt{\frac{E_b}{N_0}}\right)$\\
+
+        \vspace{-0.4cm}
+        
+        Union Bound: $P_s \leq \frac{1}{M}\sum_{k=0}^{M-1}\sum_{i = 0, \ i \neq k}^{M-1} Q\left(\frac{d_{ik}}{\sqrt{2N_0}}\right)$\\
+        $M-\mathrm{PSK}$: $s_k = (s_{k_0}, s_{k_1}) = \left(\sqrt{E_s}\cos\left(\frac{2\pi k}{M}\right), \sqrt{E_s}\sin\left(\frac{2\pi k}{M}\right)\right)$ \big| $\textbf{non-coherent FSK, ASK:} \ P_b = \frac{1}{2}\exp\left(-\frac{E_b}{2N_0}\right)$\\
+        Orthogonal Modulation: $P_b = Q\left(\sqrt{\frac{E_b}{N_0}}\right) \qquad \mathbb{E}\left\{w(t)w(\lambda)\right\} = \frac{N_0}{2}\delta(t-\lambda)$\\
+        BPSK with phase jitter: $P_b = Q\left(\sqrt{\frac{2E_b}{N_0}}\cos \theta\right)$
+    \end{minipage}
+};
+\node[fancytitle, right=10pt] at (box.north west) {\fontfamily{cmss}\selectfont 3. Bandpass Communication};
+\end{tikzpicture}
+
+%------------ Channel Coding ---------------
+\begin{tikzpicture}
+\node [mybox] (box){%
+    \begin{minipage}{0.45\textwidth}
+        Codeword ($c$), Message word ($m$), Generator matrix ($G$), Detected words ($r$), Parity bit matrix ($P$), Parity-check matrix ($H$), Syndrome ($S$), Error pattern ($e$), Corrected codeword ($\hat{c}$)\\
+        Minimum Hamming distance between 2 codewords $d_\mathrm{min}$\\
+        $t$ error detections $\Leftrightarrow d_\mathrm{min} \geq t + 1$; $t$ error corrections $\Leftrightarrow d_\mathrm{min} \geq 2t + 1$\\
+        $(n, k) = (\#\mathrm{bits \ codeword}, \ \#\mathrm{bits \ message word})$\\
+        $c = m G: (k \times n) = (k \times k) \times (k \times n)$\\
+        $G = [P | I_k] : (k \times n) = (k \times (n - k)) \times (k \times k)$\\
+        $H = [I_{(n-k)} | P^T] : ((n - k) \times n) = ((n - k) \times (n - k)) \times ((n - k) \times k)$\\
+        $S = eH^T$, $e$ all error patterns\\
+        $S = rH^T \rightarrow \hat{e} \rightarrow \hat{c} = r + \hat{e} \rightarrow \hat{m}$\\
+        Uncoded sys.: $P_b = Q\left(\sqrt{\frac{2E_b}{N_0}}\right)$\\
+        Coded sys at detector output: $\Tilde{P}_b = Q\left(\sqrt{\frac{2\Tilde{E}_b}{N_0}}\right)$, $\Tilde{E}_b = \frac{k}{n}E_b$\\
+        Coded sys. at decoder output (word): $\Tilde{P}_E \leq 1 - \sum_{i = 0}^t {n \choose i} \Tilde{P}_b^i\left(1 - \Tilde{P}_b\right)^{n-i}$\\
+        Coded sys. at decoder output (bit): $P_{BD} \approx \frac{2t+1}{n} \Tilde{P}_E$\\
+        Convolutional coding: $(n, k, L)$, $n$ output, $k$ input, $L$ registers\\
+        \# states $= 2^{k(L-1)}$\\
+        N/Y conv. cod. -- Hard (Hamming distance): $G_a = 10\log\left(\frac{k}{n}D_f / 2\right)$; Soft (Euclidean distance): $G_a = 10\log\left(\frac{k}{n}D_f\right)$
+    \end{minipage}
+};
+\node[fancytitle, right=10pt] at (box.north west) {\fontfamily{cmss}\selectfont 4. Channel Coding};
+\end{tikzpicture}
+
+\vspace{2cm}
+
+\scriptsize
+\raggedleft
+\fontfamily{cmss}\selectfont
+
+\rotbox{
+Based on Notes on Digital Transmission by Professor Fernando D. Nunes\\
+Transcribed, edited and adapted by\\
+João Marafuz Gaspar -- 96240\\
+IST, 2023}
+
+\end{multicols*}
+
+\end{document}
